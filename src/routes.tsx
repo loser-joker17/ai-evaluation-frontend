@@ -6,6 +6,7 @@ import { AuthLayout } from "@/layouts/AuthLayout";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import ComposePage from "@/features/compose/ComposePage";
+import SubmissionRoute from "@/features/submission/SubmissionPage";
 
 function Placeholder({ title }: { title: string }) {
   return <div className="text-xl font-semibold">{title}</div>;
@@ -31,7 +32,7 @@ export const router = createBrowserRouter([
         element: <AppLayout />,
         children: [
           { path: "/new", element: <ComposePage /> },
-          { path: "/s/:id", element: <Placeholder title="Submission" /> },
+          { path: "/s/:id", element: <SubmissionRoute /> },
           { path: "/progress", element: <Placeholder title="Progress" /> },
         ],
       },
