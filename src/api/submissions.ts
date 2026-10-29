@@ -1,5 +1,5 @@
 import { api } from "@/api/client";
-import type { CreateSubmissionRequest, Page, Submission, SubmissionSummary } from "@/api/types";
+import type { CreateSubmissionRequest, Page, Submission, SubmissionSummary, EvaluationResult } from "@/api/types";
 
 export const submissionsApi = {
   list: (page: number, size = 20) =>
@@ -11,6 +11,8 @@ export const submissionsApi = {
   retry: (id: string) => api<Submission>(`/api/submissions/${id}/retry`, { method: "POST" }),
 
   remove: (id: string) => api<void>(`/api/submissions/${id}`, { method: "DELETE" }),
+  
+  result: (id: string) => api<EvaluationResult>(`/api/submissions/${id}/result`),
 
   get: (id: string) => api<Submission>(`/api/submissions/${id}`),
 };

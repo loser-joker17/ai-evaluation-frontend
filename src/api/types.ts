@@ -111,3 +111,40 @@ export interface CreateSubmissionRequest {
   questionText: string;
   answerText: string;
 }
+
+/** GET /api/submissions/{id}/result: what the student sees. */
+export interface DimensionResult {
+  dimension: string;
+  label: string;
+  score: number | null;
+  maxScore: number | null;
+  justification: string | null;
+  evidence: string[];
+  improvement: string | null;
+}
+
+export interface FactualFlag {
+  claim: string | null;
+  explanation: string | null;
+  sources: string[];
+}
+
+export interface EvaluationResult {
+  evaluationId: string;
+  submissionId: string;
+  attemptNo: number;
+  status: "COMPLETED" | "REJECTED";
+  totalScore: number | null;
+  maxMarks: number;
+  wordCount: number | null;
+  wordLimit: number | null;
+  wordLimitStatus: string | null;
+  dimensions: DimensionResult[];
+  strengths: string[];
+  weaknesses: string[];
+  improvementSuggestions: string[];
+  overallFeedback: string | null;
+  factualFlags: FactualFlag[];
+  rejectionReasons: string[];
+  finishedAt: string | null;
+}

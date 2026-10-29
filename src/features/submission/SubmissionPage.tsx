@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { EvaluationProgress } from "@/features/submission/EvaluationProgress";
 import { useSubmission } from "@/features/submission/useSubmission";
 import { queryKeys } from "@/lib/queryKeys";
+import { ResultView } from "@/features/submission/ResultView";
 
 /** Route wrapper: a new id gives a fresh page (timers, confirm state). */
 export default function SubmissionRoute() {
@@ -51,15 +52,7 @@ function SubmissionPage({ id }: { id: string }) {
 
       {evaluation && !finished && <EvaluationProgress submissionId={id} evaluation={evaluation} />}
 
-      {evaluation && finished && (
-        // Replaced by the full ResultView in F3.2.
-        <div className="rounded-xl border p-5">
-          <p className="text-sm text-muted-foreground">{evaluation.status}</p>
-          {evaluation.totalScore !== null && (
-            <p className="text-3xl font-semibold">{evaluation.totalScore} / {evaluation.maxMarks}</p>
-          )}
-        </div>
-      )}
+      {evaluation && finished && <ResultView submissionId={id} evaluation={evaluation} />}
     </div>
   );
 }
