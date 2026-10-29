@@ -3,6 +3,7 @@ import { refreshSession } from "@/api/client";
 import type { AuthResponse } from "@/api/types";
 import { useAuthStore } from "@/auth/authStore";
 import { queryClient } from "@/lib/queryClient";
+import { clearAllDrafts } from "@/features/compose/draft";
 
 // Keeps tabs in sync: logging in or out in one tab does the same in the others.
 const channel = typeof BroadcastChannel !== "undefined" ? new BroadcastChannel("auth") : null;
@@ -43,5 +44,6 @@ export async function restoreSession() {
 
 function endSessionLocally() {
   useAuthStore.getState().clear();
-  queryClient.clear();   // drop one user's cached answers before another user logs in
+  queryClient.clear();
+  clearAllDrafts();
 }

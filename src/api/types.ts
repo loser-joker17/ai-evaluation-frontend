@@ -77,3 +77,37 @@ export interface Quota {
 }
 
 export const IN_PROGRESS: EvaluationStatus[] = ["PENDING", "QUEUED", "RUNNING"];
+
+/** The latest attempt, as included in GET /api/submissions/{id}. */
+export interface EvaluationSummary {
+  id: string;
+  attemptNo: number;
+  status: EvaluationStatus;
+  totalScore: number | null;
+  maxMarks: number;
+  errorCode: "EVALUATOR_FAILED" | "TIMEOUT" | "CONTRACT" | "LOST" | null;
+  createdAt: string;
+  finishedAt: string | null;
+}
+
+export interface Submission {
+  id: string;
+  sourceType: string;
+  status: string;
+  paper: Paper;
+  maxMarks: number;
+  wordLimit: number;
+  wordCount: number | null;
+  questionText: string;
+  answerText: string | null;
+  createdAt: string;
+  submittedAt: string | null;
+  evaluation: EvaluationSummary | null;
+}
+
+export interface CreateSubmissionRequest {
+  paper: Paper;
+  maxMarks: number;
+  questionText: string;
+  answerText: string;
+}
