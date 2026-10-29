@@ -41,3 +41,39 @@ export interface RegisterRequest {
   email: string;
   password: string;
 }
+
+export type Paper = "GS1" | "GS2" | "GS3" | "GS4";
+
+export type EvaluationStatus = "PENDING" | "QUEUED" | "RUNNING" | "COMPLETED" | "REJECTED" | "FAILED";
+
+/** One row of GET /api/submissions. */
+export interface SubmissionSummary {
+  id: string;
+  paper: Paper;
+  maxMarks: number;
+  wordLimit: number;
+  wordCount: number | null;
+  questionPreview: string;
+  status: string;                                 // submission status (SUBMITTED, DRAFT...)
+  evaluationStatus: EvaluationStatus | null;      // latest attempt; null if none
+  totalScore: number | null;                      // only when COMPLETED
+  evaluatedAt: string | null;
+  createdAt: string;
+}
+
+export interface Page<T> {
+  content: T[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+}
+
+export interface Quota {
+  dailyLimit: number;
+  usedToday: number;
+  remainingToday: number;
+  resetsAt: string;
+}
+
+export const IN_PROGRESS: EvaluationStatus[] = ["PENDING", "QUEUED", "RUNNING"];
