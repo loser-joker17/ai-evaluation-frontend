@@ -6,8 +6,10 @@ import { Toaster } from "@/components/ui/sonner";
 
 import { queryClient } from "@/lib/queryClient";
 import { router } from "@/routes";
+import { restoreSession } from "@/auth/session";
 import "./index.css";
 
+void restoreSession();
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
