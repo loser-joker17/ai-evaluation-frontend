@@ -6,5 +6,6 @@ export const queryKeys = {
     evaluationId ? (["result", submissionId, evaluationId] as const) : (["result", submissionId] as const),
   quota: ["quota"] as const,
   progress: ["progress"] as const,
+  progressFor: (last: number) => ["progress", last] as const,
 };
 

@@ -9,6 +9,9 @@ import { HistoryItem } from "@/features/history/HistoryItem";
 import { useSubmissionsInfinite } from "@/features/history/useSubmissionsInfinite";
 import { dateGroup, type DateGroup } from "@/lib/dates";
 import { cn } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
+import { usersApi } from "@/api/users";
+import { queryKeys } from "@/lib/queryKeys";
 
 const GROUP_ORDER: DateGroup[] = ["Today", "Yesterday", "Previous 7 days", "Older"];
 
@@ -17,6 +20,8 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const navigate = useNavigate();
   const { data, isPending, isError, refetch, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useSubmissionsInfinite();
+  
+  const quota = useQuery({ queryKey: queryKeys.quota, queryFn: usersApi.quota });
 
   const items = data?.pages.flatMap((page) => page.content) ?? [];
   const groups = new Map<DateGroup, SubmissionSummary[]>();
@@ -77,6 +82,11 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       </nav>
 
       <div className="border-t p-3 text-sm">
+            {quota.data && (
+          <p className="px-3 pb-2 text-xs text-muted-foreground">
+            {quota.data.remainingToday} of {quota.data.dailyLimit} evaluations left today
+          </p>
+        )}
         <NavLink to="/progress" onClick={onNavigate}
                  className={({ isActive }) => cn("block rounded-md px-3 py-2 hover:bg-accent", isActive && "bg-accent font-medium")}>
           My progress

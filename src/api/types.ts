@@ -148,3 +148,16 @@ export interface EvaluationResult {
   rejectionReasons: string[];
   finishedAt: string | null;
 }
+export interface DimensionProgress {
+  dimension: string;
+  label: string;
+  averagePercent: number | null;
+  recentPercents: number[];   // oldest first
+}
+
+export interface Progress {
+  evaluatedAnswers: number;
+  averageScorePercent: number | null;
+  weakestDimension: string | null;
+  dimensions: DimensionProgress[];
+}
